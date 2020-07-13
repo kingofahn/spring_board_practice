@@ -2,10 +2,13 @@ package board.board.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import board.board.dto.BoardDto;
@@ -13,12 +16,14 @@ import board.board.service.BoardService;
 
 @Controller
 public class BoardController {
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private BoardService boardService; 
 	
 	@RequestMapping("/board/openBoardList.do")
 	public ModelAndView openBoardList() throws Exception{
+		log.debug("openBoardList");
 		ModelAndView mv = new ModelAndView("/board/boardList");
 		
 		List<BoardDto> list = boardService.selectBoardList();
@@ -33,8 +38,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/insertBoard.do")
-	public String insertBoard(BoardDto board) throws Exception {
-		boardService.insertBoard(board);		
+	public String insertBoard(BoardDto board, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
+		boardService.insertBoard(board, multipartHttpServletRequest);		
 		return "redirect:/board/openBoardList.do";
 	}
 	
