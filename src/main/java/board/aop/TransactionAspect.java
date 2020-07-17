@@ -29,7 +29,6 @@ public class TransactionAspect {
 		transactionAttribute.setName(AOP_TRANSACTION_METHOD_NAME);
 		transactionAttribute.setRollbackRules(Collections.singletonList(new RollbackRuleAttribute(Exception.class)));
 		source.setTransactionAttribute(transactionAttribute);
-		
 		return new TransactionInterceptor(transactionManager, source);
 	}
 	
