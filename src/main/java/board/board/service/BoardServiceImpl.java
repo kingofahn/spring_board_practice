@@ -1,6 +1,5 @@
 package board.board.service;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import board.board.dto.BoardDto;
@@ -45,8 +42,12 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public BoardDto selectBoardDetail(int boardIdx) throws Exception {
+		BoardDto board = boardMapper.selectBoardDetail(boardIdx);
+		List<BoardFileDto> fileList = boardMapper.selectBoardFileList(boardIdx);
+		board.setFileList(fileList);
+		
 		boardMapper.updateHitCount(boardIdx);
-		return boardMapper.selectBoardDetail(boardIdx);
+		return board;
 	}
 
 	@Override
