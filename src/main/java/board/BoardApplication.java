@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfigura
 public class BoardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BoardApplication.class, args);
+		SpringApplication.run(BoardApplication.class, args); 
 	}
 
 }
